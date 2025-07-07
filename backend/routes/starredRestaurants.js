@@ -136,7 +136,18 @@ router.delete('/:id', (req, res) => {
 // 1. Extract the id from req.params and new comment from req.body.
 // 2. Find the starred restaurant in STARRED_RESTAURANTS by id.
 // 3. If not found, send 404 status.
-// 4. Otherwise, update the comment and send 200 status.
+// 4. Otherwise, update the restaurant's comment and send 200 status.
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+  const starredRestaurant = STARRED_RESTAURANTS.find(r => r.id === id);
+  if (!starredRestaurant) {
+    res.sendStatus(404);
+    return;
+  }
+  starredRestaurant.comment = comment;
+  res.sendStatus(200);
+});
 
 
 module.exports = router;
