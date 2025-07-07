@@ -55,7 +55,24 @@ router.get("/", (req, res) => {
 // 4. Otherwise, find the corresponding restaurant in ALL_RESTAURANTS using restaurantId.
 // 5. If not found, send 404 status.
 // 6. Otherwise, create an object with id, comment, and name, and send as JSON.
-
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  const starredRestaurant = STARRED_RESTAURANTS.find(r => r.id === id);
+  if (!starredRestaurant) {
+    res.sendStatus(404);
+    return;
+  }
+  const restaurant = ALL_RESTAURANTS.find(r => r.id === starredRestaurant.restaurantId);
+  if (!restaurant) {
+    res.sendStatus(404);
+    return;
+  }
+  res.json({
+    id: starredRestaurant.id,
+    comment: starredRestaurant.comment,
+    name: restaurant.name
+  });
+});
 
 /**
  * Feature 8: Adding to your list of starred restaurants.
