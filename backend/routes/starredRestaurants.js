@@ -48,24 +48,47 @@ router.get("/", (req, res) => {
 /**
  * Feature 7: Getting a specific starred restaurant.
  */
-
+// Steps:
+// 1. Extract the id from req.params.
+// 2. Find the starred restaurant in STARRED_RESTAURANTS by id.
+// 3. If not found, send 404 status.
+// 4. Otherwise, find the corresponding restaurant in ALL_RESTAURANTS using restaurantId.
+// 5. If not found, send 404 status.
+// 6. Otherwise, create an object with id, comment, and name, and send as JSON.
 
 
 /**
  * Feature 8: Adding to your list of starred restaurants.
  */
-
+// Steps:
+// 1. Extract restaurantId and comment from req.body.
+// 2. Check if the restaurantId exists in ALL_RESTAURANTS.
+// 3. If not found, send 404 status.
+// 4. Check if already starred (no duplicates).
+// 5. If already starred, send 409 status (conflict).
+// 6. Otherwise, generate a unique id for the new starred restaurant.
+// 7. Create a new starred restaurant object and push to STARRED_RESTAURANTS.
+// 8. Send the new starred restaurant as JSON with 201 status.
 
 
 /**
  * Feature 9: Deleting from your list of starred restaurants.
  */
+// Steps:
+// 1. Extract the id from req.params.
+// 2. Filter STARRED_RESTAURANTS to remove the one with matching id.
+// 3. If no restaurant was removed, send 404 status.
+// 4. Otherwise, update STARRED_RESTAURANTS and send 200 status.
 
 
 /**
  * Feature 10: Updating your comment of a starred restaurant.
  */
-
+// Steps:
+// 1. Extract the id from req.params and new comment from req.body.
+// 2. Find the starred restaurant in STARRED_RESTAURANTS by id.
+// 3. If not found, send 404 status.
+// 4. Otherwise, update the comment and send 200 status.
 
 
 module.exports = router;
