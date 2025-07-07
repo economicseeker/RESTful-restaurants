@@ -46,10 +46,11 @@ export const updateRestaurantName = async (id, newName) => {
 };
 
 export const starRestaurant = async (id) => {
-  const response = await fetch(`${API_ENDPOINT}/restaurants/starred`, {
+  const response = await fetch(`${API_ENDPOINT}/starredRestaurants`, {
     method: "POST",
     body: JSON.stringify({
-      id,
+      restaurantId: id,
+      comment: ""
     }),
     headers: {
       "Content-Type": "application/json",

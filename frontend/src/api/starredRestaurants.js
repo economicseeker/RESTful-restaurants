@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from ".";
 
-const BASE_API_ROUTE = `${API_ENDPOINT}/restaurants/starred`;
+const BASE_API_ROUTE = `${API_ENDPOINT}/starredRestaurants`;
 
 export const getStarredRestaurants = async () => {
   const response = await fetch(`${BASE_API_ROUTE}`);
@@ -21,7 +21,7 @@ export const updateComment = async (id, newComment) => {
   const response = await fetch(`${BASE_API_ROUTE}/${id}`, {
     method: "PUT",
     body: JSON.stringify({
-      newComment,
+      comment: newComment,
     }),
     headers: {
       "Content-Type": "application/json",
