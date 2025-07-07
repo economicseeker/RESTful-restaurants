@@ -118,7 +118,16 @@ router.post('/', (req, res) => {
 // 2. Filter STARRED_RESTAURANTS to remove the one with matching id.
 // 3. If no restaurant was removed, send 404 status.
 // 4. Otherwise, update STARRED_RESTAURANTS and send 200 status.
-
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const newList = STARRED_RESTAURANTS.filter(r => r.id !== id);
+  if (newList.length === STARRED_RESTAURANTS.length) {
+    res.sendStatus(404);
+    return;
+  }
+  STARRED_RESTAURANTS = newList;
+  res.sendStatus(200);
+});
 
 /**
  * Feature 10: Updating your comment of a starred restaurant.
