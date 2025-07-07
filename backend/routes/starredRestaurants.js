@@ -86,7 +86,29 @@ router.get('/:id', (req, res) => {
 // 6. Otherwise, generate a unique id for the new starred restaurant.
 // 7. Create a new starred restaurant object and push to STARRED_RESTAURANTS.
 // 8. Send the new starred restaurant as JSON with 201 status.
-
+router.post('/', (req, res) => {
+  const { restaurantId, comment } = req.body;
+  // Check if the restaurant exists in ALL_RESTAURANTS
+  const restaurant = ALL_RESTAURANTS.find(r => r.id === restaurantId);
+  if (!restaurant) {
+    res.sendStatus(404);
+    return;
+  }
+  // Check if already starred
+  const alreadyStarred = STARRED_RESTAURANTS.some(r => r.restaurantId === restaurantId);
+  if (alreadyStarred) {
+    res.sendStatus(409); // Conflict
+    return;
+  }
+  // Create new starred restaurant
+  const newStarred = {
+    id: uuidv4(),
+    restaurantId,
+    comment: comment || ''
+  };
+  STARRED_RESTAURANTS.push(newStarred);
+  res.status(201).json(newStarred);
+});
 
 /**
  * Feature 9: Deleting from your list of starred restaurants.
