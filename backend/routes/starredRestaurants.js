@@ -107,7 +107,13 @@ router.post('/', (req, res) => {
     comment: comment || ''
   };
   STARRED_RESTAURANTS.push(newStarred);
-  res.status(201).json(newStarred);
+  
+  // Return the joined data with restaurant name
+  res.status(201).json({
+    id: newStarred.id,
+    comment: newStarred.comment,
+    name: restaurant.name
+  });
 });
 
 /**
